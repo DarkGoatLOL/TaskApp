@@ -136,41 +136,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
-
         private List<Task> tasks = new ArrayList<>();
         private final OnTaskClickListener onTaskCheckListener;
         private final OnTaskLongClickListener onTaskLongClickListener;
-
         public interface OnTaskClickListener {
             void onTaskChecked(Task task, boolean isChecked);
         }
-
         public interface OnTaskLongClickListener {
             void onTaskLongClick(Task task);
         }
-
         public TaskAdapter(OnTaskClickListener checkListener, OnTaskLongClickListener longClickListener) {
             this.onTaskCheckListener = checkListener;
             this.onTaskLongClickListener = longClickListener;
         }
-
         public void setTasks(List<Task> newTasks) {
             DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
                 public int getOldListSize() {
                     return tasks.size();
                 }
-
                 @Override
                 public int getNewListSize() {
                     return newTasks.size();
                 }
-
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
                     return tasks.get(oldItemPosition).id == newTasks.get(newItemPosition).id;
                 }
-
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     Task oldTask = tasks.get(oldItemPosition);
@@ -189,33 +181,26 @@ public class MainActivity extends AppCompatActivity {
             itemLayout.setOrientation(LinearLayout.HORIZONTAL);
             itemLayout.setPadding(16, 16, 16, 16);
             itemLayout.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT));
-
             LinearLayout textContainer = new LinearLayout(parent.getContext());
             textContainer.setOrientation(LinearLayout.VERTICAL);
             textContainer.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
-
             TextView titleView = new TextView(parent.getContext());
             titleView.setTextSize(18);
             titleView.setTypeface(null, android.graphics.Typeface.BOLD);
             textContainer.addView(titleView);
-
             TextView descView = new TextView(parent.getContext());
             descView.setTextSize(14);
             descView.setVisibility(View.GONE);
             textContainer.addView(descView);
-
             CheckBox checkBox = new CheckBox(parent.getContext());
             checkBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
             ImageButton deleteButton = new ImageButton(parent.getContext());
             deleteButton.setImageResource(android.R.drawable.ic_menu_delete);
             deleteButton.setBackground(null);
             deleteButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
             itemLayout.addView(textContainer);
             itemLayout.addView(checkBox);
             itemLayout.addView(deleteButton);
-
             return new TaskViewHolder(itemLayout, titleView, descView, checkBox, deleteButton);
         }
 
