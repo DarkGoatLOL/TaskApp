@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
         public Task() {
         }
-
         public Task(String title, String description, boolean isCompleted) {
             this.title = title;
             this.description = description;
@@ -75,13 +74,10 @@ public class MainActivity extends AppCompatActivity {
     public interface TaskDao {
         @Query("SELECT * FROM tasks ORDER BY id DESC")
         LiveData<List<Task>> getAllTasks();
-
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         void insert(Task task);
-
         @Update
         void update(Task task);
-
         @Delete
         void delete(Task task);
     }
@@ -97,9 +93,7 @@ public class MainActivity extends AppCompatActivity {
             if (instance == null) {
                 synchronized (LOCK) {
                     if (instance == null) {
-                        instance = Room.databaseBuilder(context.getApplicationContext(),
-                                        AppDatabase.class, "tasks_database")
-                                .build();
+                        instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "tasks_database").build();
                     }
                 }
             }
